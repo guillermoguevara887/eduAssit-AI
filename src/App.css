@@ -1,42 +1,594 @@
-#root {
-  max-width: 1280px;
+/* ===== Basic reset ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #064e3b;
+  /* dark soft green for text */
+  background-color: #ecfdf3;
+  /* very light green background */
+}
+
+body {
+  margin: 0;
+  background: #ecfdf3;
+}
+
+/* ===== Main layout ===== */
+
+.page {
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 2.5rem 1.5rem 3rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.page>h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.page>p {
+  font-size: 1rem;
+  color: #065f46;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+/* ===== Cards ===== */
 
 .card {
-  padding: 2em;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem 1.6rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+  border: 1px solid #d1fae5;
+  /* very soft green border */
 }
 
-.read-the-docs {
-  color: #888;
+.card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #064e3b;
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== Buttons ===== */
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1.3rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.1s ease, background 0.15s ease;
+  background: #22c55e;
+  /* medium green */
+  color: white;
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.35);
+}
+
+button:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(22, 163, 74, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3);
+}
+
+/* "Back" and simple nav buttons at top of page */
+.page>button,
+.page .card>button:first-of-type {
+  background: transparent;
+  color: #059669;
+  box-shadow: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.page>button:hover,
+.page .card>button:first-of-type:hover {
+  background: transparent;
+  text-decoration: underline;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===== Inputs ===== */
+
+input[type="email"],
+input[type="password"],
+input[type="file"] {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.6rem;
+  border: 1px solid #a7f3d0;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="file"]:focus {
+  outline: 2px solid #34d399;
+  outline-offset: 1px;
+}
+
+label {
+  font-size: 0.9rem;
+  color: #065f46;
+}
+
+/* ===== Tabs (top of dashboard) ===== */
+
+.page>div>div:nth-child(2) button {
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-size: 0.9rem;
+  box-shadow: none;
+}
+
+.page>div>div:nth-child(2) button:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===== Text styles ===== */
+
+.card p {
+  font-size: 0.95rem;
+  color: #065f46;
+}
+
+.ai-text,
+.card p[style*="0.85rem"] {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.success {
+  color: #15803d;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.loading {
+  color: #22c55e;
+  font-size: 0.9rem;
+  margin-top: 0.8rem;
+}
+
+/* ===== Upload area ===== */
+
+.upload-area {
+  border: 1px dashed #6ee7b7;
+  background: #f0fdf4;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0.8rem;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 800px) {
+  .page {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .page>h1 {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: 1.2rem 1.3rem;
+  }
+}
+
+/* ===== AI recommendations block ===== */
+
+.ai-recommendations {
+  margin-top: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #bbf7d0;
+  /* soft green border */
+  background: #f0fdf4;
+  /* very light green background */
+  padding: 1rem 1.1rem;
+}
+
+.ai-recommendations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.ai-recommendations-header h3 {
+  margin: 0.15rem 0;
+  font-size: 1.1rem;
+  color: #065f46;
+}
+
+.ai-icon {
+  font-size: 1.6rem;
+}
+
+.ai-pill {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: #22c55e;
+  color: white;
+}
+
+.ai-pill.muted {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.ai-recommendations-list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ai-recommendations-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  align-items: flex-start;
+  padding: 0.5rem 0.4rem;
+  border-radius: 0.75rem;
+}
+
+.ai-recommendations-list li:nth-child(odd) {
+  background: rgba(209, 250, 229, 0.6);
+}
+
+.ai-bullet {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #22c55e;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  margin-top: 0.1rem;
+}
+
+.ai-recommendation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ai-recommendation-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #064e3b;
+}
+
+.ai-recommendation-body {
+  font-size: 0.9rem;
+  color: #065f46;
+}
+
+.ai-tag {
+  align-self: flex-start;
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid #bbf7d0;
+  color: #047857;
+}
+
+.ai-footer {
+  margin-top: 0.8rem;
+}
+
+/* ===== Reports layout ===== */
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 1rem;
+}
+
+.report-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.report-header h2 {
+  margin-bottom: 0.2rem;
+}
+
+.report-pill {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: #dcfce7;
+  color: #166534;
+}
+
+.report-pill.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Metrics block */
+
+.report-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.report-metric {
+  padding: 0.55rem 0.6rem;
+  border-radius: 0.75rem;
+  background: #f0fdf4;
+}
+
+.report-metric-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin-bottom: 0.1rem;
+}
+
+.report-metric-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #065f46;
+}
+
+.report-metric-note {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-top: 0.1rem;
+}
+
+.report-footer {
+  margin-top: 0.5rem;
+}
+
+/* Alerts list */
+
+.report-alerts-list {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.report-alerts-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.report-alert-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-top: 0.3rem;
+  background: #22c55e;
+}
+
+.report-alert-dot.warning {
+  background: #f97316;
+  /* orange */
+}
+
+.report-alert-dot.topic {
+  background: #22c55e;
+  /* green */
+}
+
+.report-alert-dot.info {
+  background: #0ea5e9;
+  /* blue */
+}
+
+.report-alert-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.report-alert-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #064e3b;
+}
+
+.report-alert-body {
+  font-size: 0.9rem;
+  color: #065f46;
+}
+
+/* Responsive tweak for reports */
+
+@media (max-width: 800px) {
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Assignments tab layout ===== */
+
+.assignment-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.assignment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.assignment-header h2 {
+  margin-bottom: 0.2rem;
+}
+
+.assignment-pill {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.assignment-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+.assignment-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Steps styling */
+
+.assignment-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.assignment-step-number {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: #22c55e;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+
+.assignment-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.assignment-step-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #064e3b;
+}
+
+.assignment-step-body {
+  font-size: 0.9rem;
+  color: #065f46;
+}
+
+/* Upload area inside assignments */
+
+.assignment-upload {
+  margin-top: 0.5rem;
+}
+
+.assignment-upload-title {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.assignment-file-name {
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+}
+
+/* AI box on the right */
+
+.assignment-ai-box {
+  margin-top: 0.5rem;
+  border-radius: 0.9rem;
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  padding: 0.8rem 0.9rem;
+}
+
+.assignment-ai-box h3 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.assignment-ai-box ol {
+  margin-left: 1.2rem;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+
+.assignment-footer {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Responsive layout */
+
+@media (max-width: 800px) {
+  .assignment-grid {
+    grid-template-columns: 1fr;
+  }
 }
