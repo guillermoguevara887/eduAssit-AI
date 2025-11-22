@@ -22,6 +22,43 @@ function StudentView({ onBack }) {
   const [activityFeeling, setActivityFeeling] = useState(null);
   const [likesActivityType, setLikesActivityType] = useState(null);
 
+  // ---- Simple "AI evaluation" demo logic ----
+  const getDemoAIEvaluation = () => {
+    // Very simple scoring logic, just for the demo
+    let score = 0;
+
+    if (activityCompleted) score += 40;
+    if (activityAbandoned) score -= 20;
+
+    if (activityFeeling === "Easy") score += 10;
+    if (activityFeeling === "Just right") score += 20;
+    if (activityFeeling === "A bit hard") score += 5;
+
+    if (likesActivityType === "Yes") score += 20;
+    if (likesActivityType === "No") score -= 10;
+
+    // Basic classification
+    let label = "Not enough data yet";
+    let message =
+      "We still need more completed activities to understand which formats work best for Ana.";
+
+    if (score >= 50) {
+      label = "Very good fit";
+      message =
+        "This type of activity seems to work very well for Ana. The AI would propose more tasks with a similar structure (summary + simple main-ideas activity).";
+    } else if (score >= 25) {
+      label = "Promising";
+      message =
+        "This activity format seems promising. With more data, the AI could fine-tune the level of difficulty and pacing.";
+    } else if (score <= 0 && (activityAbandoned || likesActivityType === "No")) {
+      label = "Needs adjustment";
+      message =
+        "Ana may need a different activity format (shorter tasks, more visual support, or different pacing). The AI would suggest alternative designs.";
+    }
+
+    return { label, message };
+  };
+
   const handleOpenNotifications = () => {
     setNotificationOpened(true);
     setHasNewNotification(false);
@@ -440,10 +477,7 @@ function StudentView({ onBack }) {
                     >
                       Leave activity
                     </button>
-                    <button
-                      type="button"
-                      onClick={handleFinishActivity}
-                    >
+                    <button type="button" onClick={handleFinishActivity}>
                       Finish activity
                     </button>
                   </div>
@@ -753,6 +787,42 @@ function StudentView({ onBack }) {
                 </p>
               )}
             </div>
+          </div>
+
+          {/* AI evaluation block */}
+          <div
+            style={{
+              marginTop: "1.2rem",
+              paddingTop: "0.9rem",
+              borderTop: "1px solid #e5e7eb",
+            }}
+          >
+            <h3 style={{ fontSize: "1rem", marginBottom: "0.35rem" }}>
+              AI evaluation (demo)
+            </h3>
+            {(() => {
+              const { label, message } = getDemoAIEvaluation();
+              return (
+                <div
+                  className="ai-recommendations"
+                  style={{ marginTop: "0.4rem" }}
+                >
+                  <div className="ai-recommendations-header">
+                    <div>
+                      <span className="ai-pill">AI analysis</span>
+                      <h3 style={{ fontSize: "0.95rem" }}>{label}</h3>
+                      <p className="ai-text">{message}</p>
+                    </div>
+                    <div className="ai-icon">📊</div>
+                  </div>
+                  <p className="ai-text ai-footer">
+                    ✨ In a full system, this block would be powered by a machine
+                    learning model trained on many students with similar
+                    profiles.
+                  </p>
+                </div>
+              );
+            })()}
           </div>
         </div>
       )}
